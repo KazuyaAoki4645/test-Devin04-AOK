@@ -1,0 +1,28 @@
+@import "tailwindcss"; 
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Custom styles for the text editor */
+.line-numbers {
+    min-width: 2rem;
+    border-right: 1px solid #e2e8f0;
+  }
+  
+  .line-number {
+    font-family: monospace;
+    line-height: 1.5;
+    font-size: 0.875rem;
+  }
+  
+  textarea {
+    line-height: 1.5;
+    min-height: 300px;
+    font-size: 0.875rem;
+  }
+  
+  /* Ensure the textarea and line numbers have the same line height */
+  textarea, .line-number {
+    line-height: 1.5;
+  }

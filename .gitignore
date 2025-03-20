@@ -1,0 +1,14 @@
+
+**/__pycache__/**
+
+__pycache__/
+
+**/.env
+
+python/backend/app/__pycache__/*
+
+*/.DS_Store
+
+.venv.zip
+node_modules/
+data/
