@@ -28,7 +28,7 @@ def get_connection_uri():
     # Note the requested scope parameter in the call to get_token, "https://ossrdbms-aad.database.windows.net/.default".
     # password = credential.get_token("https://ossrdbms-aad.database.windows.net/.default").token
     password = os.environ["SQL_PASSWORD"]
-    print(password)
+    # print(password)  # Commented out to avoid printing sensitive information
 
     db_uri = f"postgresql://{dbuser}:{password}@{dbhost}/{dbname}?sslmode={sslmode}"
     return db_uri

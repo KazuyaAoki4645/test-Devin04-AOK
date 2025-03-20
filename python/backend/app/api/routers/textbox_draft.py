@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Request, Depends, Response
+from fastapi import APIRouter, Request, Depends, Response, HTTPException
 import typing as t
 
 from db.db import get_db
-from db.crud import create_textbox_draft
+from db.crud import create_textbox_draft, get_latest_textbox_draft
 from db.schemas import TextboxDraftCreate, TextboxDraft
 from core.auth import get_current_active_user
 
@@ -23,3 +23,21 @@ async def save_textbox_draft(
     Save a draft of text from the text editor
     """
     return create_textbox_draft(db, draft)
+
+@r.get(
+    "/textbox_draft",
+    response_model=TextboxDraft,
+    response_model_exclude_none=True,
+)
+async def get_latest_textbox_draft(
+    request: Request,
+    db=Depends(get_db),
+    current_user=Depends(get_current_active_user),
+):
+    """
+    Get the latest draft of text from the text editor
+    """
+    draft = get_latest_textbox_draft(db)
+    if not draft:
+        raise HTTPException(status_code=404, detail="No drafts found")
+    return draft

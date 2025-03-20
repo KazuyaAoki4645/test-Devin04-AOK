@@ -76,3 +76,6 @@ def create_textbox_draft(db: Session, draft: schemas.TextboxDraftCreate):
     
 def get_textbox_draft(db: Session, draft_id: int):
     return db.query(models.TextboxDraft).filter(models.TextboxDraft.id == draft_id).first()
+
+def get_latest_textbox_draft(db: Session):
+    return db.query(models.TextboxDraft).order_by(models.TextboxDraft.updated_at.desc()).first()
