@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { getAuthToken } from '@/utils/auth';
 
 export default function TodosPage() {
   const [todos, setTodos] = useState([]);
@@ -7,18 +8,8 @@ export default function TodosPage() {
   useEffect(() => {
     const loginAndGetTodos = async () => {
       try {
-        // 1) /token にユーザー名・パスワードを送って認証トークンを取得
-        const res1 = await fetch("http://localhost:8000/token", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: new URLSearchParams({
-            username: "product_super",
-            password: "superuser",
-          }),
-        });
-        const tokenData = await res1.json(); 
+        // 1) 認証トークンをユーティリティ関数から取得
+        const tokenData = await getAuthToken("http://localhost:8000/token", "product_super", "superuser");
 
         // 2) 取得したトークンをヘッダに付けて /api/v1/todos を取得
         const res2 = await fetch("http://localhost:8000/todos", {
