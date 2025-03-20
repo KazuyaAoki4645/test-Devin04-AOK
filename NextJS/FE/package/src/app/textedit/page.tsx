@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { getAuthToken } from '@/utils/auth';
 
 export default function TextEditPage() {
   const [text, setText] = useState<string>('');
@@ -23,18 +24,8 @@ export default function TextEditPage() {
   
   const handleSaveDraft = async () => {
     try {
-      // First authenticate to get token - credentials should be set in environment variables
-      const res1 = await fetch("http://localhost:8000/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username: process.env.NEXT_PUBLIC_API_USERNAME || "",
-          password: process.env.NEXT_PUBLIC_API_PASSWORD || "",
-        }),
-      });
-      const tokenData = await res1.json();
+      // Get authentication token using the utility function
+      const tokenData = await getAuthToken();
 
       // Send text to backend with token
       const res2 = await fetch("http://localhost:8000/api/v1/textbox_draft", {
