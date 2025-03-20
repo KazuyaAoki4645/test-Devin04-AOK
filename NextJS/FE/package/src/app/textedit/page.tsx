@@ -44,10 +44,12 @@ export default function TextEditPage() {
         setTimeout(() => setSaveStatus(''), 3000); // Clear status after 3 seconds
       } else {
         setSaveStatus('保存に失敗しました');
+        setTimeout(() => setSaveStatus(''), 5000); // Clear error status after 5 seconds
       }
     } catch (error) {
       console.error('下書き保存に失敗しました:', error);
       setSaveStatus('保存に失敗しました');
+      setTimeout(() => setSaveStatus(''), 5000); // Clear error status after 5 seconds
     }
   };
 
