@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 import typing as t
+import datetime
 
 class UserBase(BaseModel):
     email: str
@@ -48,3 +49,18 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: str = None
     permissions: str = "user"
+
+
+class TextboxDraftBase(BaseModel):
+    content: str
+    
+class TextboxDraftCreate(TextboxDraftBase):
+    pass
+    
+class TextboxDraft(TextboxDraftBase):
+    id: int
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
+    
+    class Config:
+        orm_mode = True

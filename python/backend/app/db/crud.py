@@ -66,3 +66,13 @@ def edit_user(
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def create_textbox_draft(db: Session, draft: schemas.TextboxDraftCreate):
+    db_draft = models.TextboxDraft(content=draft.content)
+    db.add(db_draft)
+    db.commit()
+    db.refresh(db_draft)
+    return db_draft
+    
+def get_textbox_draft(db: Session, draft_id: int):
+    return db.query(models.TextboxDraft).filter(models.TextboxDraft.id == draft_id).first()
