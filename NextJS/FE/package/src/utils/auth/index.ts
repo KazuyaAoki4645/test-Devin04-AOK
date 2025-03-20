@@ -11,10 +11,10 @@ export async function getAuthToken(
   password?: string
 ): Promise<{ access_token: string }> {
   try {
-    // Use provided credentials or fall back to environment variables
+    // Use provided credentials or fall back to dummy values
     const credentials = {
-      username: username || process.env.NEXT_PUBLIC_API_USERNAME || "",
-      password: password || process.env.NEXT_PUBLIC_API_PASSWORD || "",
+      username: username || "XXXX", // Replaced with dummy value
+      password: password || "XXXX", // Replaced with dummy value
     };
 
     const response = await fetch(apiUrl, {
