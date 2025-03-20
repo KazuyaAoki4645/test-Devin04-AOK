@@ -133,16 +133,7 @@ export default function TextEditPage() {
           </svg>
         </button>
         
-        {/* Add Publish button */}
-        <button 
-          onClick={handlePublish}
-          className="absolute top-2 right-[152px] px-3 py-1 bg-green-100 text-green-700 rounded border border-green-300 hover:bg-green-200 transition-colors flex items-center z-10"
-        >
-          <span className="mr-1">公開</span>
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </button>
+        {/* Publish button removed from here and placed outside the editor frame */}
         
         {/* Add Save Draft button */}
         <button 
@@ -184,6 +175,19 @@ export default function TextEditPage() {
           onChange={handleTextChange}
           placeholder="ここにテキストを入力してください..."
         />
+      </div>
+      
+      {/* Add Publish button outside the editor frame at bottom right */}
+      <div className="flex justify-end mt-4">
+        <button 
+          onClick={handlePublish}
+          className="px-4 py-2 bg-green-100 text-green-700 rounded border border-green-300 hover:bg-green-200 transition-colors flex items-center"
+        >
+          <span className="mr-1">公開</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
