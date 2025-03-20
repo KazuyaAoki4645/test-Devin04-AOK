@@ -12,10 +12,10 @@ load_dotenv()
 def get_connection_uri():
 
     # Read URI parameters from the environment
-    dbhost = "XXXX"  # Replaced with dummy value
-    dbname = "XXXX"  # Replaced with dummy value
-    dbuser = "XXXX"  # Replaced with dummy value
-    sslmode = "XXXX"  # Replaced with dummy value
+    dbhost = os.environ['DBHOST']
+    dbname = os.environ['DB_NAME']
+    dbuser = urllib.parse.quote(os.environ['SQL_USERNAME'])
+    sslmode = os.environ['SSLMODE']
 
     # Use passwordless authentication via DefaultAzureCredential.
     # IMPORTANT! This code is for demonstration purposes only. DefaultAzureCredential() is invoked on every call.
@@ -27,7 +27,7 @@ def get_connection_uri():
     # Call get_token() to get a token from Microsft Entra ID and add it as the password in the URI.
     # Note the requested scope parameter in the call to get_token, "https://ossrdbms-aad.database.windows.net/.default".
     # password = credential.get_token("https://ossrdbms-aad.database.windows.net/.default").token
-    password = "XXXX"  # Replaced with dummy value
+    password = os.environ["SQL_PASSWORD"]
     # print(password)  # Commented out to avoid printing sensitive information
 
     db_uri = f"postgresql://{dbuser}:{password}@{dbhost}/{dbname}?sslmode={sslmode}"

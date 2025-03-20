@@ -13,9 +13,9 @@ load_dotenv()
 
 def connect_local():
     dbhost = os.getenv('DBHOST')
-    username = "XXXX"  # Replaced with dummy value
-    password = "XXXX"  # Replaced with dummy value
-    db_name = "XXXX"  # Replaced with dummy value
+    username = urllib.parse.unquote(os.getenv('SQL_USERNAME'))
+    password = os.getenv('SQL_PASSWORD')
+    db_name = os.getenv('DB_NAME')
     database_url = f'postgresql://{username}:{password}@{dbhost}:5432/{db_name}'
     return database_url
 

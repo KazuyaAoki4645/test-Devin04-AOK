@@ -14,8 +14,8 @@ import os
 env_path = './db/.env'
 
 load_dotenv(env_path)
-username = "XXXX"  # Replaced with dummy value
-password = "XXXX"  # Replaced with dummy value
+username = os.getenv('SQL_USERNAME')
+password = os.getenv('SQL_PASSWORD')
 
 def init() -> None:
     print("接続を開始...")

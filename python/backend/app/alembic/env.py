@@ -32,9 +32,9 @@ target_metadata = Base.metadata
 
 load_dotenv()
 
-username = "XXXX"  # Replaced with dummy value
-password = "XXXX"  # Replaced with dummy value
-db_name = "XXXX"  # Replaced with dummy value
+username = os.getenv('SQL_USERNAME')
+password = os.getenv('SQL_PASSWORD')
+db_name = os.getenv('DB_NAME')
 
 DATABASE_URL = f'postgresql://{username}:{password}@localhost:5432/{db_name}'
 
