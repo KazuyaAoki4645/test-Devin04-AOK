@@ -1,28 +1,52 @@
+import { AUTH_CONFIG } from '@/config';
+import { getUserCredentials } from '@/utils/session';
+
 /**
  * Utility function to retrieve an authentication token from the API
- * @param {string} apiUrl - The API URL to fetch the token from (defaults to http://localhost:8000/token)
- * @param {string} username - The username to use (defaults to environment variable)
- * @param {string} password - The password to use (defaults to environment variable)
+ * @param {string} apiUrl - Optional override for API URL (defaults to config)
+ * @param {string} username - Optional override for username (defaults to config)
+ * @param {string} password - Optional override for password (defaults to config)
  * @returns {Promise<{access_token: string}>} - The token data including access_token
  */
 export async function getAuthToken(
-  apiUrl: string = "http://localhost:8000/token",
+  apiUrl?: string,
   username?: string,
   password?: string
 ): Promise<{ access_token: string }> {
   try {
-    // Use provided credentials or fall back to dummy values
-    const credentials = {
-      username: username || "XXXX", // Replaced with dummy value
-      password: password || "XXXX", // Replaced with dummy value
-    };
+    // Use config API URL by default
+    const url = apiUrl || AUTH_CONFIG.apiUrl;
+    
+    // In production, try to get credentials from user session
+    let credentialsObj: { username: string; password: string };
+    if (AUTH_CONFIG.useUserCredentials) {
+      const userCredentials = getUserCredentials();
+      if (userCredentials) {
+        credentialsObj = {
+          username: userCredentials.username,
+          password: userCredentials.password
+        };
+      } else {
+        // Fallback to provided credentials if no user credentials available
+        credentialsObj = {
+          username: username || '',
+          password: password || '',
+        };
+      }
+    } else {
+      // In development, use dev credentials from config
+      credentialsObj = {
+        username: username || AUTH_CONFIG.devCredentials.username,
+        password: password || AUTH_CONFIG.devCredentials.password,
+      };
+    }
 
-    const response = await fetch(apiUrl, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: new URLSearchParams(credentials),
+      body: new URLSearchParams(credentialsObj),
     });
 
     if (!response.ok) {

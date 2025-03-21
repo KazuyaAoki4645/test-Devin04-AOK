@@ -9,7 +9,8 @@ export default function TodosPage() {
     const loginAndGetTodos = async () => {
       try {
         // 1) 認証トークンをユーティリティ関数から取得
-        const tokenData = await getAuthToken("http://localhost:8000/token", "XXXX", "XXXX");
+        // No need to provide arguments as they'll come from config
+        const tokenData = await getAuthToken();
 
         // 2) 取得したトークンをヘッダに付けて /api/v1/todos を取得
         const res2 = await fetch("http://localhost:8000/todos", {
